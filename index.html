@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=300px, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>仮想通貨の総採掘量計算機</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" />
+    <script src="calc.js" />
+    <script>
+        $(function () {
+            $("input").change(function () {
+                const halving = parseInt($("#halving").text());
+                const height = parseInt($("#height").text());
+                const initReward = parseInt($("#initReward").text());
+                $("pre#result").text(calcTotalSimply(halving, height, initReward));
+            });
+        });
+    </script>
+    <style>
+        .parent {
+            position: relative;
+            height: 200px;
+        }
+
+        .inner {
+            width: 300px;
+            height: 100px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+            margin: auto;
+        }
+
+        input {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body class="parent">
+    <form id="a" class="inner">
+        <p>半減期</p>
+        <input type="number" name="halving" id="halving" />
+        <p>現在のブロックの高さ</p>
+        <input type="number" name="height" id="height" />
+        <p>高さ#0での報酬</p>
+        <input type="number" name="initReward" id="initReward" />
+        <p>計算結果</p>
+        <code>
+            <pre id="result"></pre>
+        </code>
+    </form>
+</body>
+
+</html>
