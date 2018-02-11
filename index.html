@@ -6,15 +6,28 @@
     <meta name="viewport" content="width=300px, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>仮想通貨の総採掘量計算機</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" />
-    <script src="calc.js" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="calc.js"></script>
     <script>
         $(function () {
-            $("input").change(function () {
-                const halving = parseInt($("#halving").text());
-                const height = parseInt($("#height").text());
-                const initReward = parseInt($("#initReward").text());
-                $("pre#result").text(calcTotalSimply(halving, height, initReward));
+            $("#halving,#height,#initReward").keyup(function () {
+                const halving = parseInt($("#halving").val());
+                const height = parseInt($("#height").val());
+                const initReward = parseInt($("#initReward").val());
+                $("#result").text(calcTotalSimply(halving, height, initReward));
+            });
+            $("#halving,#height,#initReward,#maxCoins").keyup(function () {
+                const halving = parseInt($("#halving").val());
+                const height = parseInt($("#height").val());
+                const initReward = parseInt($("#initReward").val());
+                const maxCoins = parseInt($("#maxCoins").val());
+                // only NaN will be true
+                if (maxCoins != maxCoins) {
+                    $("#omake").text("");
+                } else {
+                    const percent = calcTotalSimply(halving, height, initReward) / maxCoins * 100;
+                    $("#omake").text(`全採掘率: ${percent}%`);
+                }
             });
         });
     </script>
@@ -38,6 +51,11 @@
         input {
             height: 30px;
         }
+
+        pre {
+            font-family: "courier new", courier, monospace;
+            font-size: 1cm;
+        }
     </style>
 </head>
 
@@ -52,6 +70,12 @@
         <p>計算結果</p>
         <code>
             <pre id="result"></pre>
+        </code>
+        <h3>おまけ</h3>
+        <p>最大数量</p>
+        <input type="number" name="maxCoins" id="maxCoins" />
+        <code>
+            <pre id="omake"></pre>
         </code>
     </form>
 </body>

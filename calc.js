@@ -19,7 +19,7 @@ function calcTotalSimply(halving, height, initReward) {
     const minedCoinsUntilLastHalvingPoint = initReward * multiplyer * halving;
 
     // mined coins from last halving point
-    const minedCoinsFromLastHalvingPoint = (initReward / (2 ** (pastHalvingTimes + 1))) * blocksSinceLastHalving;
+    const minedCoinsFromLastHalvingPoint = (initReward / (2 ** pastHalvingTimes)) * blocksSinceLastHalving;
 
     const totalMined = minedCoinsFromLastHalvingPoint + minedCoinsUntilLastHalvingPoint;
     
