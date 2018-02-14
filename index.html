@@ -94,38 +94,38 @@
             font-size: 1cm;
         }
 
-        details,
-        form {
+        #autofill>*,
+        #main>* {
             vertical-align: middle;
         }
     </style>
 </head>
 
 <body class="parent">
-    <form id="a" class="inner">
-        <p>半減期</p>
-        <input type="number" name="halving" id="halving" />
-        <p>現在のブロックの高さ</p>
-        <input type="number" name="height" id="height" />
-        <p>高さ#0での報酬</p>
-        <input type="number" name="initReward" id="initReward" />
-        <p>計算結果</p>
-        <code>
-            <pre id="result"></pre>
-        </code>
-        <h3>おまけ</h3>
-        <p>最大数量</p>
-        <input type="number" name="maxCoins" id="maxCoins" />
-        <code>
-            <pre id="omake"></pre>
-        </code>
-        <details>
+    <div class="inner" id="main">
+        <form>
+            <p>半減期</p>
+            <input type="number" name="halving" id="halving" />
+            <p>現在のブロックの高さ</p>
+            <input type="number" name="height" id="height" />
+            <p>高さ#0での報酬</p>
+            <input type="number" name="initReward" id="initReward" />
+            <p>計算結果</p>
+            <code><pre id="result"></pre></code>
+            <h3>おまけ</h3>
+            <p>最大数量</p>
+            <input type="number" name="maxCoins" id="maxCoins" />
+            <code>
+                <pre id="omake"></pre>
+            </code>
+        </form>
+        <details id="autofill">
             <summary>自動入力</summary>
             <button id="fillBTC">Bitcoin (BTC)</button>
             <button id="fillMONA">Monacoin (MONA)</button>
             <button id="fillZNY">BitZeny (ZNY)</button>
         </details>
-    </form>
+    </div>
 </body>
 
 </html>
