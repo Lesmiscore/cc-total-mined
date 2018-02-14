@@ -10,47 +10,59 @@
     <script src="calc.js"></script>
     <script src="blocks.js"></script>
     <script>
+        function calcBasic() {
+            const halving = parseInt($("#halving").val());
+            const height = parseInt($("#height").val());
+            const initReward = parseInt($("#initReward").val());
+            $("#result").text(calcTotalSimply(halving, height, initReward));
+        }
+        function calcOmake() {
+            const halving = parseInt($("#halving").val());
+            const height = parseInt($("#height").val());
+            const initReward = parseInt($("#initReward").val());
+            const maxCoins = parseInt($("#maxCoins").val());
+            // only NaN will be true
+            if (maxCoins != maxCoins) {
+                $("#omake").text("");
+            } else {
+                const percent = calcTotalSimply(halving, height, initReward) / maxCoins * 100;
+                $("#omake").text(`全採掘率: ${percent}%`);
+            }
+        }
         $(function () {
             $("#halving,#height,#initReward").keyup(function () {
-                const halving = parseInt($("#halving").val());
-                const height = parseInt($("#height").val());
-                const initReward = parseInt($("#initReward").val());
-                $("#result").text(calcTotalSimply(halving, height, initReward));
+                calcBasic();
             });
             $("#halving,#height,#initReward,#maxCoins").keyup(function () {
-                const halving = parseInt($("#halving").val());
-                const height = parseInt($("#height").val());
-                const initReward = parseInt($("#initReward").val());
-                const maxCoins = parseInt($("#maxCoins").val());
-                // only NaN will be true
-                if (maxCoins != maxCoins) {
-                    $("#omake").text("");
-                } else {
-                    const percent = calcTotalSimply(halving, height, initReward) / maxCoins * 100;
-                    $("#omake").text(`全採掘率: ${percent}%`);
-                }
+                calcOmake();
             });
-            $("#fillBTC").click(function(){
+            $("#fillBTC").click(function () {
                 $("#halving").val(210000);
                 $("#initReward").val(50);
-                blocks.insight("https://insight.bitpay.com/api").then((height)=>{
+                blocks.insight("https://insight.bitpay.com/api").then((height) => {
                     $("#height").val(height);
+                    calcBasic();
+                    calcOmake();
                 });
                 $("#maxCoins").val(21000000);
             });
-            $("#fillMONA").click(function(){
+            $("#fillMONA").click(function () {
                 $("#halving").val(1051000);
                 $("#initReward").val(50);
-                blocks.insight("https://mona.chainsight.info/api").then((height)=>{
+                blocks.insight("https://mona.chainsight.info/api").then((height) => {
                     $("#height").val(height);
+                    calcBasic();
+                    calcOmake();
                 });
                 $("#maxCoins").val(105120000);
             });
-            $("#fillZNY").click(function(){
+            $("#fillZNY").click(function () {
                 $("#halving").val(500000);
                 $("#initReward").val(250);
-                blocks.insight("https://insight.bitzeny.jp/api").then((height)=>{
+                blocks.insight("https://insight.bitzeny.jp/api").then((height) => {
                     $("#height").val(height);
+                    calcBasic();
+                    calcOmake();
                 });
                 $("#maxCoins").val(250000000);
             });
@@ -81,6 +93,11 @@
             font-family: "courier new", courier, monospace;
             font-size: 1cm;
         }
+
+        details,
+        form {
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -102,13 +119,13 @@
         <code>
             <pre id="omake"></pre>
         </code>
+        <details>
+            <summary>自動入力</summary>
+            <button id="fillBTC">Bitcoin (BTC)</button>
+            <button id="fillMONA">Monacoin (MONA)</button>
+            <button id="fillZNY">BitZeny (ZNY)</button>
+        </details>
     </form>
-    <details>
-        <summary>自動入力</summary>
-        <button id="fillBTC">Bitcoin (BTC)</button>
-        <button id="fillMONA">Monacoin (MONA)</button>
-        <button id="fillZNY">BitZeny (ZNY)</button>
-    </details>
 </body>
 
 </html>
