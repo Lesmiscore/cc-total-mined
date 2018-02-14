@@ -8,6 +8,7 @@
     <title>仮想通貨の総採掘量計算機</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="calc.js"></script>
+    <script src="blocks.js"></script>
     <script>
         $(function () {
             $("#halving,#height,#initReward").keyup(function () {
@@ -28,6 +29,30 @@
                     const percent = calcTotalSimply(halving, height, initReward) / maxCoins * 100;
                     $("#omake").text(`全採掘率: ${percent}%`);
                 }
+            });
+            $("#fillBTC").click(function(){
+                $("#halving").val(210000);
+                $("#initReward").val(50);
+                blocks.insight("https://insight.bitpay.com/api").then((height)=>{
+                    $("#height").val(height);
+                });
+                $("#maxCoins").val(21000000);
+            });
+            $("#fillMONA").click(function(){
+                $("#halving").val(1051000);
+                $("#initReward").val(50);
+                blocks.insight("https://mona.chainsight.info/api").then((height)=>{
+                    $("#height").val(height);
+                });
+                $("#maxCoins").val(105120000);
+            });
+            $("#fillZNY").click(function(){
+                $("#halving").val(500000);
+                $("#initReward").val(250);
+                blocks.insight("https://insight.bitzeny.jp/api").then((height)=>{
+                    $("#height").val(height);
+                });
+                $("#maxCoins").val(250000000);
             });
         });
     </script>
@@ -78,6 +103,12 @@
             <pre id="omake"></pre>
         </code>
     </form>
+    <details>
+        <summary>自動入力</summary>
+        <button id="fillBTC">Bitcoin (BTC)</button>
+        <button id="fillMONA">Monacoin (MONA)</button>
+        <button id="fillZNY">BitZeny (ZNY)</button>
+    </details>
 </body>
 
 </html>
