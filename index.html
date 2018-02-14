@@ -30,10 +30,10 @@
             }
         }
         $(function () {
-            $("#halving,#height,#initReward").keyup(function () {
+            $("#halving,#height,#initReward").bind("change paste keyup", function() {
                 calcBasic();
             });
-            $("#halving,#height,#initReward,#maxCoins").keyup(function () {
+            $("#halving,#height,#initReward,#maxCoins").bind("change paste keyup", function() {
                 calcOmake();
             });
             $("#fillBTC").click(function () {
